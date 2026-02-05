@@ -22,24 +22,24 @@ public class Cart {
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL , orphanRemoval = true)
-    List<CartItem> carItems;
+    List<CartItem> cartItems;
 
 
 
     public void addItem(CartItem item){
-        this.carItems.add(item);
+        this.cartItems.add(item);
         item.setCart(this);
         updateTotalAmount();
     }
     public void removeItem(CartItem item){
-        this.carItems.remove(item);
+        this.cartItems.remove(item);
         item.setCart(null);
         updateTotalAmount();
 
     }
 
     private void updateTotalAmount() {
-        this.totalAmount = carItems.stream().map(cartItem -> {
+        this.totalAmount = cartItems.stream().map(cartItem -> {
             BigDecimal unitPrice = cartItem.getUnitPrice();
             if(unitPrice ==null){
                 return BigDecimal.ZERO;
