@@ -44,17 +44,7 @@ public class CartService implements ICartService {
         Cart cart = getCart(id);
         cartItemRepository.deleteAllByCartId(id);
         cart.getCartItems().clear();
-        cartRepository.delete(cart); // Or just save with empty items? Actually logic says deleteById in original
-                                     // code.
-        // If we delete the cart, the user loses the cart link. Better to just clear
-        // items.
-        // But original code: cartRepository.deleteById(id);
-        // Let's change to clear items and reset total.
-        // Wait, if I delete the cart, next time getCartByUserId will create a new one.
-        // That works too.
-        // But let's stick to clearing items for now to be safe with FKs?
-        // Actually, deleting the cart might be cleaner if we want a fresh start.
-        // But let's see. logic above calls cartItemRepository.deleteAllByCartId(id).
+        cartRepository.delete(cart);
         cartRepository.deleteById(id);
     }
 
