@@ -1,71 +1,74 @@
-# 🛍️ E-Commerce Backend API (Spring Boot Project)
+# SleekSelects E-Commerce API
 
-This is a fully functional **E-Commerce backend application** built with **Spring Boot**. The project includes product management, categories, cart, order system, user authentication (with JWT), and Spring Security.
+A comprehensive, production-ready E-commerce Backend REST API built with Spring Boot.
 
+## Features
 
----
+*   **User Management**: Registration, Login, Role-based Access (Admin/Customer), JWT Authentication.
+*   **Product Management**: CRUD for Products and Categories, Image handling, Inventory tracking.
+*   **Order Management**: Cart system (User-linked), Order placement, Order history.
+*   **Search & Filtering**: Filter products by category, brand, name.
+*   **Security**: Secured endpoints using Spring Security and JWT.
+*   **API Documentation**: Integrated Swagger UI.
 
-## 🚀 Features
+## Technologies
 
-- Product CRUD (Create, Read, Update, Delete)
-- Category management
-- Upload and manage product images
-- Shopping cart (add/remove/update items)
-- Order management
-- User authentication and registration
-- Secure APIs using Spring Security & JWT
-- DTO usage and API testing with Postman
+*   **Java 17**
+*   **Spring Boot 3.x**
+*   **Spring Security & JWT**
+*   **Spring Data JPA (Hibernate)**
+*   **MySQL Database**
+*   **Lombok**
+*   **ModelMapper**
 
----
+## Getting Started
 
-## 🛠️ Tech Stack
+### Prerequisites
 
-- **Java 17+**
-- **Spring Boot**
-- **Spring Data JPA**
-- **Spring Security**
-- **JWT (JSON Web Tokens)**
-- **MySQL**
-- **Lombok**
-- **Postman** for API testing
+*   Java 17+
+*   Maven 3.x
+*   MySQL Server
 
----
+### Configuration
 
-## 📂 Project Structure (as built in the video)
+1.  Update `src/main/resources/application.properties` with your MySQL credentials:
+    ```properties
+    spring.datasource.url=jdbc:mysql://localhost:3306/sleek_selects
+    spring.datasource.username=your_username
+    spring.datasource.password=your_password
+    ```
 
-- `entity/` - JPA entities (Product, Category, Cart, Order, etc.)
-- `repository/` - Spring Data JPA Repositories
-- `service/` - Business logic
-- `controller/` - REST Controllers
-- `dto/` - Data Transfer Objects
-- `security/` - JWT and Security config
-- `request/response/` - Custom request and response models
+### Running the Application
 
----
+1.  Clone the repository.
+2.  Run the following command to build and run:
+    ```bash
+    mvn spring-boot:run
+    ```
 
+The API will be available at `http://localhost:8080`.
 
+## API Documentation
 
-## 📅 Current Progress
+Swagger UI is available at:
+`http://localhost:8080/swagger-ui/index.html`
 
-I’m currently building the project step-by-step as I learn:
+### Key Endpoints
 
-- [x] Entities (Product, Category)
-- [x] Product CRUD
-- [x] Services(Product ,Category)
-- [ ] Image upload
-- [ ] Cart & Order management
-- [ ] Spring Security & JWT
-- [ ] User Authentication
-- [ ] Final testing and cleanup
+*   **Auth**:
+    *   `POST /api/v1/auth/register` - Register a new user
+    *   `POST /api/v1/auth/login` - Login and receive JWT
+*   **Products**:
+    *   `GET /api/v1/products/all` - List all products
+    *   `POST /api/v1/products/add` - Add product (Admin only)
+*   **Categories**:
+    *   `GET /api/v1/categories/all` - List all categories
+*   **Orders**:
+    *   `POST /api/v1/orders/user/{userId}/place-order` - Place an order from cart
+    *   `GET /api/v1/orders/user/{userId}/orders` - Get user order history
 
+## Security
 
-
-
-
-
-
-
-
-
-
-
+*   Endpoints under `/api/v1/auth/**`, `/api/v1/products/**` (GET), and `/api/v1/categories/**` (GET) are public.
+*   All other endpoints require a valid Bearer Token in the `Authorization` header.
+*   Admin-only endpoints require a user with `ROLE_ADMIN`.

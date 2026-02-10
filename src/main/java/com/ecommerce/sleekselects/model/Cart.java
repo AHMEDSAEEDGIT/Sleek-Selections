@@ -18,20 +18,23 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL , orphanRemoval = true)
-    List<CartItem> cartItems;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> cartItems;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-
-    public void addItem(CartItem item){
+    public void addItem(CartItem item) {
         this.cartItems.add(item);
         item.setCart(this);
         updateTotalAmount();
     }
-    public void removeItem(CartItem item){
+
+    public void removeItem(CartItem item) {
         this.cartItems.remove(item);
         item.setCart(null);
         updateTotalAmount();
@@ -41,11 +44,11 @@ public class Cart {
     private void updateTotalAmount() {
         this.totalAmount = cartItems.stream().map(cartItem -> {
             BigDecimal unitPrice = cartItem.getUnitPrice();
-            if(unitPrice ==null){
+            if (unitPrice == null) {
                 return BigDecimal.ZERO;
             }
             return unitPrice.multiply(BigDecimal.valueOf(cartItem.getQuantity()));
-        }).reduce(BigDecimal.ZERO , BigDecimal::add);
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }
