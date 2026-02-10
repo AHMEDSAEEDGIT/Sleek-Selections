@@ -51,7 +51,9 @@ The API will be available at `http://localhost:8080`.
 ## API Documentation
 
 Swagger UI is available at:
-`http://localhost:8080/swagger-ui/index.html`
+`http://localhost:8181/swagger-ui/index.html`
+Swagger UI live on github is available at:
+`https://ahmedsaeedgit.github.io/Sleek-Selections-OpenAPI/`
 
 ### Key Endpoints
 
