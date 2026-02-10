@@ -20,12 +20,7 @@ public class OrderController {
     public ResponseEntity<ApiResponse> placeOrder(@PathVariable Long userId) {
         try {
             Order order = orderService.placeOrder(userId);
-            return ResponseEntity.ok(new ApiResponse("Order Placed Successfully", order.getId())); // Return full DTO?
-                                                                                                   // Just ID is fine
-                                                                                                   // for now.
-            // Actually API response usually returns DTO.
-            // But placeOrder returns Order entity in service.
-            // Ideally should return OrderDto.
+            return ResponseEntity.ok(new ApiResponse("Order Placed Successfully", order.getId()));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(new ApiResponse("Error Occurred: " + e.getMessage(), null));
         }
